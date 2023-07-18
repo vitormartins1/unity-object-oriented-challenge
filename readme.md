@@ -1,5 +1,9 @@
 # Unity Object Oriented Programming Challenge
 
+A stealth minigame that the player has to save animals from cages and avoid surveillance cameras to not be detected. Uses all four pillars of Object Oriented Programming as explained bellow.
+
+![alt](\thumb.png)
+
 ## 1 - Inheritance
 
 Parent/child relationships implemented with inheritance:
