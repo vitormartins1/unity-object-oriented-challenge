@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AnimalRescue : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // all animals rescued follow the player
+
     void Start()
     {
         

@@ -1,11 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class SurveillanceCamera : MonoBehaviour
+public class SurveillanceCamera : TrapCamera
 {
-    public float fieldOfViewAngle = 90f; // Ângulo de abertura do campo de visão da câmera
-    public float detectionRange = 10f; // Alcance máximo de detecção da câmera
-    public LayerMask playerLayer; // Camada do jogador
-    public GameObject alarmObject; // Objeto de alarme para acionar quando o jogador é detectado
+    public float angle;
+    public float rotationSpeed;
+    public float waitTime;
+    public bool isRotatingLeft;
+
+    void Start()
+    {
+        StartCoroutine(RotateCamera());
+    }
 
     private void Update()
     {
@@ -13,41 +20,34 @@ public class SurveillanceCamera : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, detectionRange, playerLayer))
         {
-            // Verifica se o jogador está dentro do ângulo de abertura do campo de visão
-            Vector3 directionToPlayer = hit.transform.position - transform.position;
-            float angle = Vector3.Angle(directionToPlayer, transform.forward);
-
-            if (angle <= fieldOfViewAngle * 0.5f)
-            {
-                // O jogador está dentro do campo de visão da câmera
-                // Faça aqui as ações que deseja quando o jogador é detectado
-                Debug.Log("Jogador detectado!");
-
-                // Ativa o objeto de alarme, se existir
-                if (alarmObject != null)
-                    alarmObject.SetActive(true);
-            }
-        }
-        else
-        {
-            // O jogador não está dentro do campo de visão da câmera
-            // Faça aqui as ações que deseja quando o jogador não é detectado
-
-            // Desativa o objeto de alarme, se existir
-            if (alarmObject != null)
-                alarmObject.SetActive(false);
+            PlayerIsInFieldOfView(hit);
         }
     }
 
-    private void OnDrawGizmosSelected()
+    IEnumerator RotateCamera()
     {
-        // Desenha o campo de visão da câmera no editor do Unity
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, -fieldOfViewAngle * 0.5f, 0) * transform.forward * detectionRange);
-        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, fieldOfViewAngle * 0.5f, 0) * transform.forward * detectionRange);
-        Gizmos.DrawRay(transform.position, transform.forward * detectionRange);
+        while (true)
+        {
+            // Verifica se a câmera chegou no limite do ângulo.
+            //if (transform.eulerAngles.z >= angle || transform.eulerAngles.z <= -angle)
+            //{
+            //    // Se sim, muda a direção da rotação.
+            //    isRotatingLeft = !isRotatingLeft;
+            //    //yield return null;
+            //    yield return new WaitForSeconds(waitTime);
+            //}
 
-        Gizmos.DrawRay(transform.position, Quaternion.Euler(-fieldOfViewAngle * 0.3f, 0, 0) * transform.forward * detectionRange);
-        Gizmos.DrawRay(transform.position, Quaternion.Euler(fieldOfViewAngle * 0.3f, 0, 0) * transform.forward * detectionRange);
+            // Rotaciona a câmera para a esquerda ou direita, de acordo com o ângulo configurado e se ela está roteando para a esquerda ou para a direita.
+            if (isRotatingLeft)
+            {
+                transform.Rotate(0, rotationSpeed, 0);
+            }
+            else
+            {
+                transform.Rotate(0, -rotationSpeed, 0);
+            }
+
+            // Espera por `waitTime` segundos antes de continuar.
+        }
     }
 }
