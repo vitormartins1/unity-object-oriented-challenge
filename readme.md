@@ -11,7 +11,7 @@ AnimalRescue -> Monkey/Bird/Snake
 
 Types and behaviors that objects can perform or can change depending of the subtype:
 
-- All TrapCameras identify the player when he enters the field of view of the camera, but the surveillance camera rotate and the trap camera remains static.
+- All TrapCameras identify the player when he enters the field of view of the camera, but the surveillance camera rotate and the trap camera overrides the rotate function to do nothing and remains static.
 - All AnimalRescue follows the player, but some animals follows in different ways
 
 ## 3 - Encapsulation

@@ -19,4 +19,8 @@ public class AlertCamera : TrapCamera
             PlayerIsInFieldOfView(hit);
         }
     }
+
+    public override void RotateCamera()
+    {
+    }
 }
