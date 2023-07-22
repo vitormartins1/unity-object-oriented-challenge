@@ -25,3 +25,12 @@ The relevant data about the objects are protected in the right way preventing mi
 ## 4 - Abstraction
 
 The code is clean and implements abstraction to hide unnecessary complexity, only exposing what is needed to make the code run as meant to. can be reusable reducing complexity and speeding up development.
+
+
+### Resources 
+
+[Coupling Animation and Navigation
+](https://docs.unity3d.com/Manual/nav-CouplingAnimationAndNavigation.html)
+
+[Custom Nav Mesh
+](https://github.com/jadvrodrigues/CustomNavMesh)
